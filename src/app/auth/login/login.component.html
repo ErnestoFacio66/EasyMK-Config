@@ -1,0 +1,112 @@
+<div class="login-page">
+  <section class="hero" aria-hidden="true">
+    <div class="hero-glow one"></div>
+    <div class="hero-glow two"></div>
+
+    <div class="brand">
+      <span class="brand-mark">E</span>
+      <span class="brand-name">EasyMK Config</span>
+    </div>
+
+    <div class="hero-copy">
+      <h2>Configura tu operación en EasyMK.</h2>
+      <p>Conecta tus cuentas de Walmart, invita a tu equipo y administra quién puede hacer qué.</p>
+    </div>
+
+    <ul class="hero-points">
+      <li><mat-icon>storefront</mat-icon> Cuentas de Walmart</li>
+      <li><mat-icon>key</mat-icon> Credenciales cifradas</li>
+      <li><mat-icon>group_add</mat-icon> Usuarios y roles</li>
+    </ul>
+  </section>
+
+  <section class="form-side">
+    <div class="login-card">
+      <div class="mobile-brand">
+        <span class="brand-mark">E</span>
+        <span class="brand-name">EasyMK Config</span>
+      </div>
+
+      @if (isPlatform()) {
+        <span class="mode-badge"><mat-icon>admin_panel_settings</mat-icon> Staff EasyMK</span>
+      }
+      <h1>Iniciar sesión</h1>
+      <p class="subtitle">
+        {{
+          isPlatform()
+            ? 'Acceso para el equipo de EasyMK: alta de sellers y administradores.'
+            : 'Acceso para administradores de la cuenta del seller.'
+        }}
+      </p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <mat-icon matPrefix>mail</mat-icon>
+          <input matInput type="email" formControlName="email" autocomplete="username" />
+          @if (form.controls.email.hasError('required')) {
+            <mat-error>Ingresa tu correo</mat-error>
+          } @else if (form.controls.email.hasError('email')) {
+            <mat-error>Ingresa un correo válido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+          @if (form.controls.password.hasError('required')) {
+            <mat-error>Ingresa tu contraseña</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error()) {
+          <p class="auth-error" role="alert"><mat-icon>error</mat-icon> {{ error() }}</p>
+        }
+
+        <button
+          mat-flat-button
+          type="submit"
+          class="full-width submit emk-gradient-button"
+          [disabled]="submitting()"
+        >
+          @if (submitting()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            Entrar
+          }
+        </button>
+      </form>
+
+      @if (demoAccounts().length > 0) {
+        <div class="demo">
+          <span class="demo-title"><mat-icon>science</mat-icon> Modo de datos de prueba</span>
+          <p>Contraseña para todas: <code>{{ demoPassword }}</code></p>
+          <div class="demo-accounts">
+            @for (account of demoAccounts(); track account.email) {
+              <button type="button" class="demo-account" (click)="useDemo(account.email)">
+                <strong>{{ account.email }}</strong>
+                <span>{{ account.role }}</span>
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <p class="switch-mode">
+        @if (isPlatform()) {
+          ¿Eres seller? <a routerLink="/login">Entra aquí</a>
+        } @else {
+          ¿Eres del equipo de EasyMK? <a routerLink="/platform/login">Acceso de plataforma</a>
+        }
+      </p>
+
+      <p class="footnote">© EasyMK</p>
+    </div>
+  </section>
+</div>

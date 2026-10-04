@@ -1,0 +1,60 @@
+<mat-sidenav-container class="shell-container">
+  <mat-sidenav mode="side" opened class="shell-nav">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">E</span>
+      <span class="brand-name">Easy<span>MK</span></span>
+      <span class="brand-tag">Config</span>
+    </div>
+
+    <nav class="nav">
+      <span class="nav-caption">{{ isPlatform() ? 'Plataforma' : 'Configuración' }}</span>
+      @for (item of navItems(); track item.path) {
+        <a class="nav-item" [routerLink]="item.path" routerLinkActive="active-nav-item">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="nav-footer">
+      @if (!isPlatform()) {
+        <a class="nav-item" [href]="webAppUrl">
+          <mat-icon>arrow_back</mat-icon>
+          <span>Ir a EasyMK</span>
+        </a>
+      }
+      <button class="nav-item logout" type="button" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell-main">
+    <header class="topbar">
+      <div class="topbar-title">
+        <span class="crumb">{{ isPlatform() ? 'EasyMK Plataforma' : 'EasyMK Config' }}</span>
+        <mat-icon class="crumb-sep">chevron_right</mat-icon>
+        <span class="crumb current">{{ currentSection() }}</span>
+        @if (useMocks) {
+          <span class="mock-badge" title="Los datos vienen del backend simulado (environment.useMocks)">
+            Datos de prueba
+          </span>
+        }
+      </div>
+      <div class="user">
+        <div class="user-text">
+          <span class="user-email">{{ email() }}</span>
+          <span class="user-role">{{ roleLabel() }}</span>
+        </div>
+        <div class="avatar" aria-hidden="true">
+          <mat-icon>person</mat-icon>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell-content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

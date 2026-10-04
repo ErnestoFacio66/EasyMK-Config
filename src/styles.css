@@ -1,0 +1,344 @@
+/* EasyMK design tokens and global styles. Material component theming lives in theme.scss. */
+
+:root {
+  --emk-primary: #6d28d9;
+  --emk-primary-soft: #ede9fe;
+  --emk-accent: #2563eb;
+  --emk-gradient: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%);
+
+  --emk-bg: #f4f5fb;
+  --emk-surface: #ffffff;
+  --emk-surface-muted: #f8f9fc;
+  --emk-border: #e6e8f0;
+  --emk-text: #0f172a;
+  --emk-text-muted: #64748b;
+
+  --emk-sidebar-bg: #0f1023;
+  --emk-sidebar-text: #a5a8c4;
+  --emk-sidebar-active: rgba(124, 58, 237, 0.18);
+
+  --emk-radius-sm: 8px;
+  --emk-radius: 14px;
+  --emk-radius-lg: 20px;
+  --emk-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.06);
+  --emk-shadow-lg: 0 10px 40px rgba(15, 23, 42, 0.12);
+
+  /* Status colors (background / foreground) */
+  --emk-status-pending-bg: #fef3c7;
+  --emk-status-pending-fg: #92400e;
+  --emk-status-acknowledged-bg: #ede9fe;
+  --emk-status-acknowledged-fg: #5b21b6;
+  --emk-status-shipped-bg: #dbeafe;
+  --emk-status-shipped-fg: #1e40af;
+  --emk-status-delivered-bg: #dcfce7;
+  --emk-status-delivered-fg: #166534;
+  --emk-status-cancelled-bg: #fee2e2;
+  --emk-status-cancelled-fg: #991b1b;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--emk-bg);
+  color: var(--emk-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reusable building blocks */
+
+.emk-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.emk-page-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.emk-page-header p {
+  margin: 4px 0 0;
+  color: var(--emk-text-muted);
+}
+
+.emk-card {
+  background: var(--emk-surface);
+  border: 1px solid var(--emk-border);
+  border-radius: var(--emk-radius);
+  box-shadow: var(--emk-shadow);
+}
+
+.emk-card + .emk-card {
+  margin-top: 20px;
+}
+
+.emk-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--emk-border);
+}
+
+.emk-card-header h2,
+.emk-card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.emk-card-body {
+  padding: 20px;
+}
+
+.emk-empty {
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--emk-text-muted);
+}
+
+.emk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--emk-surface-muted);
+  color: var(--emk-text-muted);
+}
+
+.emk-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.emk-chip.status-pending { background: var(--emk-status-pending-bg); color: var(--emk-status-pending-fg); }
+.emk-chip.status-acknowledged { background: var(--emk-status-acknowledged-bg); color: var(--emk-status-acknowledged-fg); }
+.emk-chip.status-shipped { background: var(--emk-status-shipped-bg); color: var(--emk-status-shipped-fg); }
+.emk-chip.status-delivered { background: var(--emk-status-delivered-bg); color: var(--emk-status-delivered-fg); }
+.emk-chip.status-cancelled { background: var(--emk-status-cancelled-bg); color: var(--emk-status-cancelled-fg); }
+
+/* Material tables inside cards: modern, airy rows */
+
+.emk-table.mat-mdc-table {
+  width: 100%;
+  background: transparent;
+}
+
+.emk-table .mat-mdc-header-cell {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--emk-text-muted);
+  background: var(--emk-surface-muted);
+  border-bottom-color: var(--emk-border);
+}
+
+.emk-table .mat-mdc-cell {
+  border-bottom-color: var(--emk-border);
+  color: var(--emk-text);
+}
+
+.emk-table .mat-mdc-row {
+  transition: background-color 120ms ease;
+}
+
+.emk-table .mat-mdc-row:hover {
+  background: var(--emk-surface-muted);
+}
+
+.emk-table .mat-mdc-row:last-child .mat-mdc-cell {
+  border-bottom: none;
+}
+
+.emk-table .mat-mdc-header-cell:first-child,
+.emk-table .mat-mdc-cell:first-child {
+  padding-left: 20px;
+}
+
+.emk-table .mat-mdc-header-cell:last-child,
+.emk-table .mat-mdc-cell:last-child {
+  padding-right: 20px;
+}
+
+.emk-table-scroll {
+  overflow-x: auto;
+}
+
+.emk-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dialogs */
+
+.emk-dialog .mat-mdc-dialog-surface {
+  border-radius: var(--emk-radius-lg);
+}
+
+/* Buttons: slightly rounder, modern */
+
+.mat-mdc-unelevated-button,
+.mat-mdc-outlined-button,
+.mat-mdc-button {
+  --mdc-filled-button-container-shape: 10px;
+  --mdc-outlined-button-container-shape: 10px;
+  --mdc-text-button-container-shape: 10px;
+}
+
+.emk-gradient-button.mat-mdc-unelevated-button:not(:disabled) {
+  background: var(--emk-gradient);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.28);
+}
+
+/* KPI tiles */
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kpi.emk-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  margin: 0;
+}
+
+.kpi-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--emk-primary-soft);
+  color: var(--emk-primary);
+}
+
+.kpi-icon.pending { background: var(--emk-status-pending-bg); color: var(--emk-status-pending-fg); }
+.kpi-icon.acknowledged { background: var(--emk-status-acknowledged-bg); color: var(--emk-status-acknowledged-fg); }
+.kpi-icon.shipped { background: var(--emk-status-shipped-bg); color: var(--emk-status-shipped-fg); }
+.kpi-icon.delivered { background: var(--emk-status-delivered-bg); color: var(--emk-status-delivered-fg); }
+
+.kpi-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--emk-text-muted);
+}
+
+.kpi-value {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Empty / error states */
+
+.emk-empty .empty-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: #cbd5e1;
+}
+
+.emk-empty .empty-icon.error {
+  color: var(--emk-status-cancelled-fg);
+}
+
+.emk-empty .empty-state {
+  margin: 8px 0 12px;
+}
+
+/* Inline messages */
+
+.form-error,
+.form-info,
+.form-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: var(--emk-radius-sm);
+  font-size: 0.9rem;
+}
+
+.form-error { background: var(--emk-status-cancelled-bg); color: var(--emk-status-cancelled-fg); }
+.form-info { background: var(--emk-status-shipped-bg); color: var(--emk-status-shipped-fg); }
+.form-success { background: var(--emk-status-delivered-bg); color: var(--emk-status-delivered-fg); }
+
+.form-error mat-icon,
+.form-info mat-icon,
+.form-success mat-icon {
+  flex: none;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Dialog forms */
+
+.emk-dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: min(440px, 80vw);
+}
+
+.emk-dialog-form .row {
+  display: flex;
+  gap: 12px;
+}
+
+.emk-dialog-form .row > * {
+  flex: 1;
+}
+
+.emk-dialog-form mat-form-field {
+  width: 100%;
+}
+
+/* Copyable secret/link box */
+
+.emk-copy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 12px;
+  border: 1px solid var(--emk-border);
+  border-radius: var(--emk-radius-sm);
+  background: var(--emk-surface-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.emk-copy span {
+  flex: 1;
+}

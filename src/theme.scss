@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+$easymk-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+      tertiary: mat.$azure-palette,
+    ),
+    typography: (
+      brand-family: 'Inter, sans-serif',
+      plain-family: 'Inter, sans-serif',
+      bold-weight: 600,
+      medium-weight: 500,
+      regular-weight: 400,
+    ),
+    density: (
+      scale: -1,
+    ),
+  )
+);
+
+@include mat.core();
+
+html {
+  @include mat.all-component-themes($easymk-theme);
+  // Keeps `color="primary"` and similar attributes working under M3.
+  @include mat.color-variants-backwards-compatibility($easymk-theme);
+}
